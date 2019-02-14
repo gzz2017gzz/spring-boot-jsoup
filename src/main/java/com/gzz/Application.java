@@ -21,12 +21,10 @@ import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.io.ClassPathResource;
 
 @SpringBootApplication
 public class Application {
 
-	File file;
 	BufferedImage bi;
 
 	public static void main(String[] args) throws IOException {
@@ -36,8 +34,9 @@ public class Application {
 
 	@PostConstruct
 	private void 图片分类解析() throws IOException {
-		file = new ClassPathResource("no.jpg").getFile();
-		bi = ImageIO.read(file);
+		InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("no.jpg");
+
+		bi = ImageIO.read(resourceAsStream);
 
 		Document 首页面 = Jsoup.connect("https://www.meitulu.com").get();
 		Element 图片分类页面元素 = 首页面.getElementById("tag_ul");
@@ -80,9 +79,10 @@ public class Application {
 	}
 
 	private void 解析图集并下载(String 源站目录, int 图片数, String 图集名称) throws IOException {
+		图集名称 = 图集名称.replaceAll("<", "").replaceAll(">", "").replaceAll("/", "-").replaceAll("\\\\", "-");
 		for (int i = 1; i <= 图片数; i++) {
 			String 文件路径 = "F:/" + 图集名称 + "/" + i + ".jpg";
-			文件路径 = 文件路径.replaceAll("<", "").replaceAll(">", "");
+			
 			File file = new File(文件路径);
 			if (!file.exists()) {
 				String attr = "https://mtl.ttsqgs.com/images/img/" + 源站目录 + "/" + i + ".jpg";
