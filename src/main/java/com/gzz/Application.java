@@ -81,7 +81,7 @@ public class Application {
 	private void 解析图集并下载(String 源站目录, int 图片数, String 图集名称) throws IOException {
 		图集名称 = 图集名称.replaceAll("<", "").replaceAll(">", "").replaceAll("/", "-").replaceAll("\\\\", "-");
 		for (int i = 1; i <= 图片数; i++) {
-			String 文件路径 = "F:/" + 图集名称 + "/" + i + ".jpg";
+			String 文件路径 = "D:/" + 图集名称 + "/" + i + ".jpg";
 			
 			File file = new File(文件路径);
 			if (!file.exists()) {
