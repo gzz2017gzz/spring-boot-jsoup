@@ -1,0 +1,115 @@
+package com.gzz;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.PostConstruct;
+import javax.imageio.ImageIO;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.gzz.sys.url.Url;
+import com.gzz.sys.url.UrlCond;
+import com.gzz.sys.url.UrlDao;
+
+@SpringBootApplication
+public class Application2 {
+	private static Log logger = LogFactory.getLog(Application2.class);
+	private BufferedImage bi;
+
+	@Autowired
+	UrlDao dao;
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application2.class, args);
+	}
+
+	@PostConstruct
+	private void pages() throws Exception {
+		InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("no.jpg");
+		bi = ImageIO.read(resourceAsStream);
+		List<Url> list = new ArrayList<>();
+
+		for (int j = 1; j <= 3; j++) {
+			Document page = Jsoup.connect("http://www.mmtuyi.com/forum-333-" + j + ".html").get();
+			Element content = page.body().getElementById("waterfall");
+			Elements elementsByTag = content.getElementsByTag("a");
+			for (int i = 0; i < elementsByTag.size(); i++) {
+				if (i % 2 == 0) {
+					Url url = Url.builder().url(elementsByTag.get(i).attr("href")).path(elementsByTag.get(i).attr("title")).build();
+					list.add(url);
+				}
+			}
+		}
+		dao.insertBatch(list);
+
+		list = dao.queryList(UrlCond.builder().build());
+		for (Url url : list) {
+			logger.info(url.getPath());
+			while (true) {
+				try {
+					picSet(url);
+					break;
+				} catch (Exception e) {
+					logger.info("发生异常，2秒后重新请求!");
+					TimeUnit.SECONDS.sleep(2);
+					continue;
+				}
+			}
+			dao.delete(url.getId());
+		}
+
+	}
+
+	private void picSet(Url url) throws IOException {
+		Document page = Jsoup.connect(url.getUrl()).get();
+		Elements div = page.body().getElementsByClass("mbn savephotop");
+		for (int i = 0; i < div.size(); i++) {
+			div.get(i).child(0).attr("data-original");
+			String 文件路径 = "I:/瑞丝馆/" + url.getPath() + "/" + (i + 1) + ".jpg";
+			File file = new File(文件路径);
+			if (!file.exists()) {
+				URL imgurl = new URL(div.get(i).child(0).attr("data-original"));
+				try {
+					URLConnection connection = imgurl.openConnection();
+					if (!file.getParentFile().exists())
+						file.getParentFile().mkdirs();
+					Files.write(Paths.get(文件路径), 输入流转字节数组(connection.getInputStream()));
+				} catch (Exception e) {
+					logger.error("服务器上没有这个文件！" + imgurl + ",本机目标路径:" + 文件路径);
+					ImageIO.write(bi, "png", file);
+				}
+			}
+		}
+
+	}
+
+	public final byte[] 输入流转字节数组(InputStream inStream) throws IOException {
+		ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
+		byte[] buff = new byte[100];
+		int rc = 0;
+		while ((rc = inStream.read(buff, 0, 100)) > 0) {
+			swapStream.write(buff, 0, rc);
+		}
+		byte[] in2b = swapStream.toByteArray();
+		return in2b;
+	}
+}
