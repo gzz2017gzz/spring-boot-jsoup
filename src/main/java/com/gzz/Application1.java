@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 //https://www.meitulu.com/
 public class Application1 {
 	private static Log logger = LogFactory.getLog(Application1.class);
-	private static String root = "E:/youmihui/";
+	private static String root = "D:/youmihui/";
 
 	public static void main(String[] args) throws IOException {
 		List<String> pages = new ArrayList<>();
@@ -39,11 +39,7 @@ public class Application1 {
 						Utils.downPic(img.attr("src"), path);
 					});
 				}
-
 			}
-
 		}
-
 	}
-
 }
