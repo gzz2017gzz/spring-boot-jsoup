@@ -16,7 +16,7 @@ public class Utils {
 			File file = new File(path);
 			if (!file.exists()) {
 				URLConnection connection = new URL(url).openConnection();
-//				connection.setRequestProperty("Referer", "https://www.lsmpx.com/");
+				connection.setRequestProperty("Referer", "https://img.aitaotu.cc/");
 				if (!file.getParentFile().exists())
 					file.getParentFile().mkdirs();
 				ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
