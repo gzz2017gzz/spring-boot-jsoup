@@ -30,7 +30,7 @@ public class Application7 {
 					for (Element ele : eles) {
 						String[] split = ele.attr("alt").split(" - ");
 						String path = rootpath + split[0].replace("...", "") + "/" + df.format(num) + ".jpg";
-						Utils.downPic(ele.attr("src"), path);
+						Utils.downPic(ele.attr("src"), path, host);
 						num++;
 					}
 				}

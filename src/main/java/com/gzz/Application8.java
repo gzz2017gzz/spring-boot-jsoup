@@ -27,7 +27,7 @@ public class Application8 {
 				for (int i = 0; i < pageCount; i++) {
 					Jsoup.connect(host + page0.replace("-0.", "-" + i + ".")).get().select(".picture img").forEach(img -> {
 						String path = rootpath + href.text() + "/" + df.format(num) + ".webp";
-						Utils.downPic(img.attr("src"), path);
+						Utils.downPic(img.attr("src"), path, host);
 						num++;
 					});
 				}

@@ -37,7 +37,7 @@ public class Application3 {
 				for (int i = 1; i < pageCount + 1; i++)
 					pages.add(attr + i + ".jpg");
 				for (String url : pages) {
-					Utils.downPic(url, root + path + "/" + url.split("/")[7]);
+					Utils.downPic(url, root + path + "/" + url.split("/")[7], base);
 				}
 			}
 		}

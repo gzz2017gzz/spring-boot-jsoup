@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 //https://www.meituri.com/
 public class Application5 {
 	private static Log logger = LogFactory.getLog(Application5.class);
@@ -34,7 +35,7 @@ public class Application5 {
 					Elements images = Jsoup.connect(string).get().select(".content img");
 					for (Element img : images) {
 						String picUrl = img.attr("src");
-						Utils.downPic(picUrl, root + element.text() + "/" + picUrl.split("/")[6]);
+						Utils.downPic(picUrl, root + element.text() + "/" + picUrl.split("/")[6], "https://www.meituri.com");
 					}
 				}
 			}

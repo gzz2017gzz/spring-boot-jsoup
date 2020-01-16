@@ -36,7 +36,7 @@ public class Application1 {
 				for (String i : pagesList) {
 					Jsoup.connect(i).get().select("center img").forEach(img -> {
 						String path = root + part + "/" + img.attr("src").split("/")[6];
-						Utils.downPic(img.attr("src"), path);
+						Utils.downPic(img.attr("src"), path, "https://www.meitulu.com");
 					});
 				}
 			}
