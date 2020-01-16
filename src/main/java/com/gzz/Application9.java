@@ -18,13 +18,11 @@ public class Application9 {
 	private static DecimalFormat df = new DecimalFormat("00");
 
 	public static void main(String[] args) throws Exception {
-
-		for (int j = 1; j < 2; j++) {
+		for (int j = 1; j < 62; j++) {
 			Document document = Jsoup.connect("https://www.lesmao.co/forum-99-" + j + ".html").get();
 //			logger.info(document);
 			Elements select = document.select(".photo a");
 			for (Element element : select) {
-//				
 //				logger.info(element.attr("href"));
 				logger.info(element.childNode(1).attr("alt"));
 				num = 1;
@@ -37,9 +35,7 @@ public class Application9 {
 						num++;
 					}
 				}
-
 			}
-
 		}
 	}
 }
