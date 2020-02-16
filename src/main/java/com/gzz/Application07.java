@@ -9,8 +9,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 //https://www.lsmpx.com
-public class Application7 {
-	private static Log logger = LogFactory.getLog(Application7.class);
+public class Application07 {
+	private static Log logger = LogFactory.getLog(Application07.class);
 
 	private static String rootpath = "e:/aiyouwu/";
 	private static String host = "https://www.lsmpx.com/";

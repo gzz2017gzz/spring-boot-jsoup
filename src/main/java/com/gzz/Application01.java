@@ -11,15 +11,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 //https://www.meitulu.com/
-public class Application1 {
-	private static Log logger = LogFactory.getLog(Application1.class);
-	private static String root = "D:/youmihui/";
+public class Application01 {
+	private static Log logger = LogFactory.getLog(Application01.class);
+	private static String root = "E:/xiuren/";
 
 	public static void main(String[] args) throws IOException {
 		List<String> pages = new ArrayList<>();
-		String url = "https://www.meitulu.com/t/youmihui/";
+		String url = "https://www.meitulu.com/t/xiuren/";
 		pages.add(url);
-		for (int i = 2; i <= 6; i++)
+		for (int i = 2; i <= 28; i++)
 			pages.add(url + i + ".html");
 		for (String uri : pages) {
 			Elements select = Jsoup.connect(uri).get().select(".p_title a");
@@ -36,7 +36,7 @@ public class Application1 {
 				for (String i : pagesList) {
 					Jsoup.connect(i).get().select("center img").forEach(img -> {
 						String path = root + part + "/" + img.attr("src").split("/")[6];
-						Utils.downPic(img.attr("src"), path, "https://www.meitulu.com");
+						Utils.downPic(img.attr("src"), path, "https://mtl.gzhuibei.com/");
 					});
 				}
 			}

@@ -27,7 +27,7 @@ public class FileUtils {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String path = "D:/1111/新建文件夹";
+		String path = "E:/youme/新建文件夹";
 		listDir(new File(path), "webp", "jpg");
 //		listDir(new File(path), "jpg", "webp");
 		log.info("命名完成!");

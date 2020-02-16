@@ -10,8 +10,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 //https://www.meituri.com/
-public class Application5 {
-	private static Log logger = LogFactory.getLog(Application5.class);
+public class Application05 {
+	private static Log logger = LogFactory.getLog(Application05.class);
 	private static String root = "d:/dgzx/";
 
 	public static void main(String[] args) throws IOException {

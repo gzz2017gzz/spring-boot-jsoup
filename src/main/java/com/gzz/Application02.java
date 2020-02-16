@@ -10,8 +10,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 //https://www.aitaotu.com
-public class Application2 {
-	private static Log logger = LogFactory.getLog(Application1.class);
+public class Application02 {
+	private static Log logger = LogFactory.getLog(Application01.class);
 	private static String root = "D:/mitao/";
 	private static String base = "https://www.aitaotu.com";
 

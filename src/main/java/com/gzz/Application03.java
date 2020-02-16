@@ -11,8 +11,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 //http://www.quantuwang.co
-public class Application3 {
-	private static Log logger = LogFactory.getLog(Application1.class);
+public class Application03 {
+	private static Log logger = LogFactory.getLog(Application01.class);
 	private static String root = "D:/mitao/";
 	private static String base = "http://www.quantuwang.co";
 
