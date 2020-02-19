@@ -18,7 +18,7 @@ public class Application08 {
 
 	public static void main(String[] args) throws Exception {
 		for (int j = 0; j < 10; j++) {
-			Elements select = Jsoup.connect("https://www.yuleba.org/b/324-" + j + ".html").get().select(".b_img li h3 a");
+			Elements select = Jsoup.connect("https://www.yuleba.org/b/289-" + j + ".html").get().select(".b_img li h3 a");
 			for (Element href : select) {
 				String page0 = href.attr("href");
 				logger.info(href.text());

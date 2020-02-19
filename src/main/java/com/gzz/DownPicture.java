@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -37,10 +38,9 @@ public class DownPicture {
 
 	}
 
-//	@PostConstruct
-	public void run() throws IOException {
-		for (int j = 9; j < 13; j++) {
-
+	@PostConstruct
+	public void run() throws IOException, InterruptedException {
+		for (int j = 1; j < 13; j++) {
 			Document document = Jsoup.connect("https://www.ku137.net/b/57/list_57_" + j + ".html").get();
 //			log.info(document);
 			Elements select = document.select(".l-pub").select(".cl a");
@@ -63,6 +63,7 @@ public class DownPicture {
 				List<Picture> urls = new ArrayList<>();
 				for (String page : set) {
 //					log.info(page);
+					TimeUnit.SECONDS.sleep(2);
 					Elements images = Jsoup.connect(page).get().select(".content img");
 					for (Element image : images) {
 //						log.info(image.attr("src"));
@@ -80,19 +81,15 @@ public class DownPicture {
 
 	}
 
-	@PostConstruct
+//	@PostConstruct
 	public void down() {
-
 		PictureCond cond = new PictureCond();
 		long count = dao.queryCount(cond);
 		for (int i = 0; i < count+10; i += 10) {
-//			cond.setPage(i / 10);
 			Page<Picture> page = dao.queryPage(cond);
-//			page.getDataList().forEach(pic -> log.info("id={}", pic.getId()));
 			page.getDataList().forEach(pic -> Utils.downPic(pic.getUrl(), pic.getPath(), host));
 			List<Object> ids = page.getDataList().stream().map(Picture::getId).collect(Collectors.toList());
 			dao.delete(ids.toArray());
-			
 		}
 	}
 
