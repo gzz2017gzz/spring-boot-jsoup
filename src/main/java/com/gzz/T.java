@@ -1,5 +1,5 @@
 package com.gzz;
-
+//https://www.tu963.net/y/9/index.html
 public class T {
 
 	public static void main(String[] args) {
