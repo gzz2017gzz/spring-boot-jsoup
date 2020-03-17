@@ -12,7 +12,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-//https://www.meitulu.com/
 public class Application23 {
 	private static Log logger = LogFactory.getLog(Application23.class);
 	private static String root = "E:/bbb/";
@@ -23,7 +22,7 @@ public class Application23 {
 	
  
 		List<String> pagesList = new ArrayList<>();
-		String url = "https://www.5ikantu.com/thread-5377-1-18.html?pp=";
+		String url = "https://www.5ikantu.com/thread-5914-1-17.html?pp=";
 		for (int j = 1; j <15; j++) {
 			pagesList.add(url+j );
 		}
@@ -31,8 +30,8 @@ public class Application23 {
 		int num = 1;
 		for (String i : pagesList) {
 			Document document = Jsoup.connect(i).get();
-		
-			Elements elements = document.select("#postmessage_5377 img");
+//			logger.info(document);
+			Elements elements = document.select("#postmessage_5914 img");
  			logger.info(i);
 			for (Element img : elements) {
 				String path = root  + df.format(num) + ".jpg";

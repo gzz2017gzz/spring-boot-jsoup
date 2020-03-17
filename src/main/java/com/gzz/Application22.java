@@ -20,7 +20,7 @@ public class Application22 {
 
 	public static void main(String[] args) throws IOException {
 
-		String url = "https://www.meitulu.com/item/3511.html";
+		String url = "https://www.meitulu.com/item/3553.html";
 
 		Document doc = Jsoup.connect(url).get();
 		String part = doc.select("h1").text();
@@ -42,7 +42,7 @@ public class Application22 {
 				String path = root + part + "/" + df.format(num) + ".jpg";
 				logger.info(img.attr("src"));
 				logger.info(path);
-				Utils.downPic(img.attr("src"), path, "http://www.meitulu.cn/");
+				Utils.downPic(img.attr("src"), path, "https://www.meitulu.com/item/3553.html");
 				num++;
 			}
 

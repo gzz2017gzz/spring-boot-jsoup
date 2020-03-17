@@ -9,7 +9,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-//https://www.meitulu.com/
 public class Application20 {
 	private static Log logger = LogFactory.getLog(Application20.class);
 	private static String root = "E:/aaa/";
