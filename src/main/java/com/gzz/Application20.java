@@ -24,6 +24,5 @@ public class Application20 {
 			Utils.downPic("http://www.ncjlh.com"+element.attr("src"), path, "http://www.ncjlh.com");
 			i++;
 		}
- 
 	}
 }

@@ -19,8 +19,8 @@ public class Application23 {
 
 	public static void main(String[] args) throws IOException {
 
-	
- 
+
+
 		List<String> pagesList = new ArrayList<>();
 		String url = "https://www.5ikantu.com/thread-5914-1-17.html?pp=";
 		for (int j = 1; j <15; j++) {
