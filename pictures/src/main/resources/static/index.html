@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>down-picture</title>
+</head>
+<script type="text/javascript" src="vue.min.js"></script>
+<script type="text/javascript" src="axios.min.js"></script>
+
+<body>
+	<div id="app">
+		<template v-for="item in dicts" :key="item.url">
+			<span style="width:220px;height:20; display:inline-block;border:1px solid black;padding:6px"  >
+				<button :disabled="item.pageCount > '0'"  @click="queryCount(item)" style="width:130px;" >{{item.label}}[共{{item.pageCount}}页]</button>
+				<button :disabled="!item.pageCount" @click="downPictures()">下载</button>
+			</span>
+		</template>
+	</div>
+	<script>
+		axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+		new Vue({
+			el: '#app',
+			data: function () {
+				return { form: { setName: '', pageCount: '', setUrl: '', }, dicts: [], messages: [] }
+			},
+			created: function () { this.queryDicts(); },
+			methods: {
+				queryCount(item) {
+					console.log("item", item)
+					this.form.setName = item.label;
+					this.form.setUrl = item.url;
+					axios.post("/queryCount?url=" + item.url).then(res => {
+						if (res.data.code == 200) {
+							this.form.pageCount = res.data.data;
+							item.pageCount = res.data.data;
+						}
+						else this.$message.error(res.data.msg);
+					});
+				},
+				queryDicts() {
+					axios.post("/queryDicts").then(res => {
+						if (res.data.code == 200) { this.dicts = res.data.data; }
+						else this.$message.error(res.data.msg);
+					});
+				},
+				downPictures() {
+					axios.post("/downPictures", JSON.stringify(this.form)).then(res => {
+						if (res.data.code == 200) { this.$message.success('已开始下载有耐心等待') }
+						else this.$message.error(res.data.msg);
+					})
+				},
+			},
+		});
+	</script>
+</body>
+
+</html>
