@@ -10,6 +10,9 @@
 
 <body>
 	<div id="app">
+		<h3>1.文件保存在D:盘根目录下</h3>
+		<h3>2.先点击图集按钮获取页数,再点击下载按钮后耐心等待......</h3>
+		
 		<template v-for="item in dicts" :key="item.url">
 			<span style="width:220px;height:20; display:inline-block;border:1px solid black;padding:6px"  >
 				<button :disabled="item.pageCount > '0'"  @click="queryCount(item)" style="width:130px;" >{{item.label}}[共{{item.pageCount}}页]</button>
